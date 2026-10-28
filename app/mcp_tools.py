@@ -15,7 +15,8 @@ from app.config import (
     MAX_SEARCH_RESULTS,
     TOPIC_SEPARATOR,
     FULL_SCAN_ON_BOOT,
-    FOLDER_WATCHER_ACTIVE_ON_BOOT
+    FOLDER_WATCHER_ACTIVE_ON_BOOT,
+    DOCS_DIR,
 )
 from app.folder_watcher import (
     start_watching_folder as start_folder_watcher,
@@ -26,9 +27,6 @@ from app.folder_watcher import (
 )
 from app.incremental_updater import process_incremental_changes
 from app.scan_all_my_documents import scan_all
-
-
-DOCS_DIR = "/app/my-docs"
 
 
 def _format_file_size(size_in_bytes: int) -> str:

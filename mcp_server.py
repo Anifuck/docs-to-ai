@@ -23,16 +23,16 @@ from app.scan_all_my_documents import scan_all
 from app import mcp_tools as tools
 from app.config import (
     FULL_SCAN_ON_BOOT,
-    FOLDER_WATCHER_ACTIVE_ON_BOOT
+    FOLDER_WATCHER_ACTIVE_ON_BOOT,
+    DOCS_DIR,
 )
-
-DOCS_DIR = os.getenv("DOCS_DIR", "/app/my-docs")
 
 
 @asynccontextmanager
 async def lifespan(app):
     """Handle startup and shutdown of the MCP server."""
     if FOLDER_WATCHER_ACTIVE_ON_BOOT:
+        print(f"[MCP Server] DOCS_DIR={DOCS_DIR}", file=sys.stderr)
         print(f"[MCP Server] FOLDER_WATCHER_ACTIVE_ON_BOOT is enabled, starting folder watcher...", file=sys.stderr)
         
         def scan_callback(changes, incremental):

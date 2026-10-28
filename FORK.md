@@ -9,7 +9,10 @@
 | MCP tools не рекурсируют | `mcp_server.py` → вызов `app.mcp_tools` |
 | Модель эмбеддингов из env | `app/config.py` → `EMBEDDING_MODEL`, `EMBEDDING_DIMENSION`, префиксы E5 |
 | Reranker из env, дефолт для RU | `RERANKER_MODEL` → `BAAI/bge-reranker-v2-m3` |
+| Папка документов из `.env` | `HOST_DOCS_DIR` + `DOCS_DIR`, `app/config.py` |
 | HTTP MCP для Docker | `docker-compose.yml` → `--sse`, `MCP_TRANSPORT=websocket` |
+
+**Папка с документами:** `HOST_DOCS_DIR` — путь на диске; `DOCS_DIR` — путь в контейнере (например `/app/knowledge`). После смены: `docker compose up -d` + scan.
 
 ### Модели по умолчанию (форк)
 
@@ -33,6 +36,8 @@ docker exec docs-to-ai uv run python -m app.scan_all_my_documents
 Пример `.env`:
 
 ```env
+HOST_DOCS_DIR=./my-docs
+DOCS_DIR=/app/my-docs
 EMBEDDING_MODEL=intfloat/multilingual-e5-base
 EMBEDDING_DIMENSION=768
 RERANKER_MODEL=BAAI/bge-reranker-v2-m3
@@ -68,4 +73,4 @@ copy .env.example .env
 docker compose up -d --build
 ```
 
-Документы проекта монтируйте в `docker-compose.yml` (volume на `knowledge` или `my-docs`).
+Папку документов задайте в `.env` (`HOST_DOCS_DIR`, `DOCS_DIR`), см. `.env.example`.

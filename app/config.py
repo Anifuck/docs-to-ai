@@ -5,7 +5,18 @@ import os
 BASE_DIR = Path(__file__).parent.parent
 CHROMADB_DIR = BASE_DIR / "cache/chromadb"
 DOC_CACHE_DIR = BASE_DIR / "cache/doc_cache"
-DOCS_DIR = Path(os.getenv('DOCS_DIR', BASE_DIR / "my-docs")) # Default documents directory
+def _resolve_docs_dir() -> Path:
+    """Documents root from DOCS_DIR env (absolute or relative to repo root)."""
+    raw = os.getenv("DOCS_DIR")
+    if raw:
+        path = Path(raw)
+        if not path.is_absolute():
+            path = BASE_DIR / path
+        return path.resolve()
+    return (BASE_DIR / "my-docs").resolve()
+
+
+DOCS_DIR = _resolve_docs_dir()
 
 CHROMADB_DIR.mkdir(exist_ok=True, parents=True)
 DOC_CACHE_DIR.mkdir(exist_ok=True, parents=True)

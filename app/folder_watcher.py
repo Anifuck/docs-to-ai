@@ -693,9 +693,7 @@ def _get_watch_path(folder_path: Optional[str] = None) -> Path:
     if folder_path:
         return Path(folder_path)
 
-    # Default to my-docs directory relative to BASE_DIR
-    # BASE_DIR is typically /app in Docker or project root in development
-    return BASE_DIR / "my-docs"
+    return DOCS_DIR
 
 
 # ============================================================================
@@ -737,7 +735,7 @@ if __name__ == "__main__":
         # In production, document processing happens in the callback provided by MCP server
         try:
             result = subprocess.run(
-                ["python", "-m", "app.scan_all_my_documents", "--doc-dir", "/app/my-docs"],
+                ["python", "-m", "app.scan_all_my_documents", "--doc-dir", str(DOCS_DIR)],
                 capture_output=True,
                 text=True,
                 check=True,
