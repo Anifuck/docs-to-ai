@@ -7,14 +7,37 @@
 | Изменение | Файл |
 |-----------|------|
 | MCP tools не рекурсируют | `mcp_server.py` → вызов `app.mcp_tools` |
-| Модель эмбеддингов из env | `app/config.py` → `EMBEDDING_MODEL`, `EMBEDDING_DIMENSION` |
+| Модель эмбеддингов из env | `app/config.py` → `EMBEDDING_MODEL`, `EMBEDDING_DIMENSION`, префиксы E5 |
+| Reranker из env, дефолт для RU | `RERANKER_MODEL` → `BAAI/bge-reranker-v2-m3` |
 | HTTP MCP для Docker | `docker-compose.yml` → `--sse`, `MCP_TRANSPORT=websocket` |
 
-Пример смены модели (после смены — очистить `cache/chromadb` и re-scan):
+### Модели по умолчанию (форк)
+
+| Назначение | Hugging Face id | Размерность |
+|------------|-----------------|-------------|
+| Embedding | `intfloat/multilingual-e5-base` | 768 |
+| Rerank | `BAAI/bge-reranker-v2-m3` | cross-encoder |
+
+Для **multilingual-e5** автоматически добавляются префиксы `query: ` / `passage: ` при индексации и поиске.
+
+Легче по RAM (хуже качество): `intfloat/multilingual-e5-small` + `EMBEDDING_DIMENSION=384`.
+
+После смены embedding **обязательно** новая коллекция или очистка `cache/chromadb`, затем полный scan:
+
+```powershell
+cd D:\Project_AI_Assistent\docs-to-ai\repo
+docker compose up -d --build
+docker exec docs-to-ai uv run python -m app.scan_all_my_documents
+```
+
+Пример `.env`:
 
 ```env
-EMBEDDING_MODEL=paraphrase-multilingual-MiniLM-L12-v2
-EMBEDDING_DIMENSION=384
+EMBEDDING_MODEL=intfloat/multilingual-e5-base
+EMBEDDING_DIMENSION=768
+RERANKER_MODEL=BAAI/bge-reranker-v2-m3
+CHROMA_COLLECTION_NAME=my-documents-ru-v1
+USE_BM25=True
 ```
 
 ## Один раз: создать форк на GitHub

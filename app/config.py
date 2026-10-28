@@ -15,8 +15,16 @@ DOCS_DIR.mkdir(exist_ok=True, parents=True)
 SUPPORTED_EXTENSIONS = ['.pdf', '.docx', '.doc', '.md', '.xlsx', '.xls', '.xlsam', '.xlsb', '.pptx', '.html', '.htm', '.txt', '.csv']  # Supported document types
 
 # Embedding Configuration (override via EMBEDDING_MODEL / EMBEDDING_DIMENSION in .env or Docker)
-EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
-EMBEDDING_DIMENSION = int(os.getenv("EMBEDDING_DIMENSION", "384"))
+EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "intfloat/multilingual-e5-base")
+EMBEDDING_DIMENSION = int(os.getenv("EMBEDDING_DIMENSION", "768"))
+# E5 models expect "query: " / "passage: " prefixes; auto-enabled when model id contains "e5"
+_e5_model = "e5" in EMBEDDING_MODEL.lower()
+EMBEDDING_QUERY_PREFIX = os.getenv(
+    "EMBEDDING_QUERY_PREFIX", "query: " if _e5_model else ""
+)
+EMBEDDING_PASSAGE_PREFIX = os.getenv(
+    "EMBEDDING_PASSAGE_PREFIX", "passage: " if _e5_model else ""
+)
 
 # Chunking Configuration
 CHUNKING_STRATEGY = os.getenv('CHUNKING_STRATEGY', 'by_paragraph').lower() # 'fixed_size', 'by_paragraph', 'semantic_heading', or 'by_token'
@@ -32,7 +40,7 @@ MIN_CHUNK_SIZE = 50  # Minimum chunk size to avoid tiny chunks
 DEFAULT_SEARCH_RESULTS: int = int(os.getenv('DEFAULT_SEARCH_RESULTS', '10'))
 MAX_SEARCH_RESULTS: int = int(os.getenv('MAX_SEARCH_RESULTS', '20'))
 USE_RERANKER = os.getenv('USE_RERANKER', 'True').lower() in ('true', '1', 'yes', 'on')
-RERANKER_MODEL = os.getenv('RERANKER_MODEL', 'cross-encoder/ms-marco-MiniLM-L-6-v2')
+RERANKER_MODEL = os.getenv('RERANKER_MODEL', 'BAAI/bge-reranker-v2-m3')
 RERANKER_TOP_N = int(os.getenv('RERANKER_TOP_N', '50'))
 USE_BM25 = os.getenv('USE_BM25', 'False').lower() in ('true', '1', 'yes', 'on')  # Enable hybrid search with BM25
 BM25_WEIGHT = float(os.getenv('BM25_WEIGHT', '0.3'))  # Weight for BM25 in hybrid search (0-1)

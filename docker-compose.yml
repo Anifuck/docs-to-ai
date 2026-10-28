@@ -3,8 +3,15 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        EMBEDDING_MODEL: ${EMBEDDING_MODEL:-intfloat/multilingual-e5-base}
+        RERANKER_MODEL: ${RERANKER_MODEL:-BAAI/bge-reranker-v2-m3}
+        USE_RERANKER: ${USE_RERANKER:-True}
     container_name: docs-to-ai
     image: mcp/docs-to-ai
+
+    env_file:
+      - .env
 
     # Volumes for persistent data
     volumes:
@@ -15,7 +22,13 @@ services:
     # Environment variables (optional)
     environment:
       - PYTHONUNBUFFERED=1 # ensures that the python output i.e. the stdout and stderr streams are sent straight to terminal (e.g. your container log) without being first buffered
-      - EMBEDDING_MODEL=all-MiniLM-L6-v2
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL:-intfloat/multilingual-e5-base}
+      - EMBEDDING_DIMENSION=${EMBEDDING_DIMENSION:-768}
+      - RERANKER_MODEL=${RERANKER_MODEL:-BAAI/bge-reranker-v2-m3}
+      - USE_RERANKER=${USE_RERANKER:-True}
+      - USE_BM25=${USE_BM25:-True}
+      - BM25_WEIGHT=${BM25_WEIGHT:-0.35}
+      - CHROMA_COLLECTION_NAME=${CHROMA_COLLECTION_NAME:-my-documents-ru-v1}
       # Startup behavior control (defaults to True if not set)
       - FULL_SCAN_ON_BOOT=${FULL_SCAN_ON_BOOT:-False}
       - FOLDER_WATCHER_ACTIVE_ON_BOOT=${FOLDER_WATCHER_ACTIVE_ON_BOOT:-True}

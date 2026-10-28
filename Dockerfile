@@ -20,7 +20,14 @@ RUN --mount=type=cache,target=/root/.cache/uv  uv sync --no-install-project
 COPY app/ /app/app/
 COPY mcp_server.py /app/
 
-# Pre-download and cache models to be included in the image
+# Pre-download models baked into the image (override at build via compose build.args)
+ARG EMBEDDING_MODEL=intfloat/multilingual-e5-base
+ARG RERANKER_MODEL=BAAI/bge-reranker-v2-m3
+ARG USE_RERANKER=True
+ENV EMBEDDING_MODEL=${EMBEDDING_MODEL}
+ENV RERANKER_MODEL=${RERANKER_MODEL}
+ENV USE_RERANKER=${USE_RERANKER}
+
 RUN uv run python -m app.download_models
 
 # Expose HTTP port

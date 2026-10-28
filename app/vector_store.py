@@ -6,13 +6,15 @@ from typing import List, Dict, Optional, Any
 import json
 import re
 from app.config import (
-    CHROMADB_DIR, 
-    CHROMA_COLLECTION_NAME, 
+    CHROMADB_DIR,
+    CHROMA_COLLECTION_NAME,
     EMBEDDING_MODEL,
+    EMBEDDING_QUERY_PREFIX,
+    EMBEDDING_PASSAGE_PREFIX,
     DEFAULT_SEARCH_RESULTS,
     USE_RERANKER,
     RERANKER_MODEL,
-    RERANKER_TOP_N
+    RERANKER_TOP_N,
 )
 import sys
 
@@ -71,7 +73,24 @@ class VectorStore:
 
         # Mark as initialized
         VectorStore._initialized = True
-    
+
+    def _prefix_texts(self, texts: List[str], prefix: str) -> List[str]:
+        if not prefix:
+            return texts
+        return [f"{prefix}{t}" for t in texts]
+
+    def encode_queries(self, texts: List[str]):
+        return self.embedding_model.encode(
+            self._prefix_texts(texts, EMBEDDING_QUERY_PREFIX),
+            show_progress_bar=False,
+        )
+
+    def encode_passages(self, texts: List[str], show_progress_bar: bool = False):
+        return self.embedding_model.encode(
+            self._prefix_texts(texts, EMBEDDING_PASSAGE_PREFIX),
+            show_progress_bar=show_progress_bar,
+        )
+
     def add_documents(self, chunks: List[Dict[str, Any]]) -> int:
         """
         Add document chunks to the vector store.
@@ -103,7 +122,7 @@ class VectorStore:
         
         # Generate embeddings
         print(f"Generating embeddings for {len(texts)} chunks...", file=sys.stderr)
-        embeddings = self.embedding_model.encode(texts, show_progress_bar=True)
+        embeddings = self.encode_passages(texts, show_progress_bar=True)
         
         # Add to collection (using upsert to prevent duplicates)
         self.collection.upsert(
@@ -156,7 +175,7 @@ class VectorStore:
         """
         search_n_results = RERANKER_TOP_N if self.cross_encoder else n_results * 3
         
-        query_embedding = self.embedding_model.encode([query])[0]
+        query_embedding = self.encode_queries([query])[0]
         
         results = self.collection.query(
             query_embeddings=[query_embedding.tolist()],
