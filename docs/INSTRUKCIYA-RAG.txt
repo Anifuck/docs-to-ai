@@ -1,15 +1,52 @@
-Документы и поиск (RAG)
-=======================
+# Поиск по документам (RAG) — инструкция
 
-PDF и Word кладите в папку **docs-for-index** в корне repo (можно в подпапках).
+Сервис индексирует PDF и Word и отдаёт их помощнику в Cursor.
 
-Другую папку на диске задаёт IT в .env (HOST_DOCS_DIR, DOCS_DIR).
+---
 
-Полная инструкция:
-  D:\Project_AI_Assistent\knowledge\user-guides\docs-to-ai-rag-kratko.md
+## Куда класть файлы
 
-Запуск и индексация:
+Папка **docs-for-index** в корне этого репозитория (можно в подпапках).
 
-  cd D:\Project_AI_Assistent\docs-to-ai\repo
-  docker compose up -d
-  docker exec docs-to-ai uv run python -m app.scan_all_my_documents
+Другую папку на диске подключает IT в `.env` (`HOST_DOCS_DIR`, `DOCS_DIR`).
+
+---
+
+## Запуск (Docker Desktop должен быть включён)
+
+```powershell
+cd D:\Project_AI_Assistent\docs-to-ai\repo
+docker compose up -d
+```
+
+Контейнер **docs-to-ai** в Docker Desktop — статус Running.
+
+---
+
+## Индексация (после первого запуска и после новых файлов)
+
+```powershell
+docker exec docs-to-ai uv run python -m app.scan_all_my_documents
+```
+
+---
+
+## Остановка
+
+```powershell
+docker compose down
+```
+
+---
+
+## Cursor (настраивает IT)
+
+MCP: http://127.0.0.1:38777/mcp
+
+---
+
+## Ещё
+
+- Настройки: `.env` (образец — `.env.example`)
+- Форк, модели, git: `docs/FORK.md`
+- Краткая копия в базе знаний проекта: `knowledge/user-guides/docs-to-ai-rag-kratko.md`

@@ -1,3 +1,0 @@
-Инструкция по RAG:  docs\INSTRUKCIYA-RAG.txt
-
-Документы для поиска:  папка docs-for-index  (в корне repo)

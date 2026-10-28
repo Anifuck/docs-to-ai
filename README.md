@@ -4,7 +4,7 @@ RAG + MCP для поиска по PDF/Word. Запуск через Docker.
 
 | Что | Где |
 |-----|-----|
-| **Инструкция для пользователей** | [docs/INSTRUKCIYA-RAG.txt](docs/INSTRUKCIYA-RAG.txt) |
+| **Инструкция для пользователей** | **`docs/INSTRUKCIYA-RAG.txt`** (только этот файл) |
 | **Отличия форка, git, модели** | [docs/FORK.md](docs/FORK.md) |
 | **Документы для индекса** | папка `docs-for-index/` |
 | **Настройки** | `.env` (скопировать из `.env.example`) |
