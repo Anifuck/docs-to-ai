@@ -1,2 +1,0 @@
-# put-files-here-in-subfolders.txt
-# PDF/DOCX по подпапкам — каждая папка = topic в Chroma
