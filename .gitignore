@@ -59,10 +59,7 @@ docker-compose.override.yml
 .mcp-debug-tools/
 
 
-# Runtime data (index, caches)
+# Runtime data (index, caches) inside docs-to-ai
 data/
 
-# Documents for RAG (PDF etc. not in git)
-docs-for-index/**
-!docs-for-index/КЛАДИТЕ-ФАЙЛЫ-СЮДА.txt
 my-docs/

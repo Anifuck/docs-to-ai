@@ -6,16 +6,16 @@
 
 ## Куда класть файлы
 
-Папка **docs-for-index** в корне этого репозитория (можно в подпапках).
+**`D:\Project_AI_Assistent\data\documents`** (можно в подпапках).
 
-Другую папку на диске подключает IT в `.env` (`HOST_DOCS_DIR`, `DOCS_DIR`).
+Другой путь задаёт IT в `.env` в папке **docs-to-ai** (`HOST_DOCS_DIR`, `DOCS_DIR`).
 
 ---
 
 ## Запуск (Docker Desktop должен быть включён)
 
 ```powershell
-cd D:\Project_AI_Assistent\docs-to-ai\repo
+cd D:\Project_AI_Assistent\docs-to-ai
 docker compose up -d
 ```
 
@@ -34,6 +34,7 @@ docker exec docs-to-ai uv run python -m app.scan_all_my_documents
 ## Остановка
 
 ```powershell
+cd D:\Project_AI_Assistent\docs-to-ai
 docker compose down
 ```
 
@@ -47,6 +48,6 @@ MCP: http://127.0.0.1:38777/mcp
 
 ## Ещё
 
-- Настройки: `.env` (образец — `.env.example`)
-- Форк, модели, git: `docs/FORK.md`
-- Краткая копия в базе знаний проекта: `knowledge/user-guides/docs-to-ai-rag-kratko.md`
+- Настройки: `docs-to-ai\.env` (образец — `.env.example`)
+- Форк, модели, git: `docs-to-ai\docs\FORK.md`
+- Краткая копия: `knowledge\user-guides\docs-to-ai-rag-kratko.md`

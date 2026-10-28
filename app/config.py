@@ -14,7 +14,7 @@ def _resolve_docs_dir() -> Path:
         if not path.is_absolute():
             path = BASE_DIR / path
         return path.resolve()
-    return (BASE_DIR / "docs-for-index").resolve()
+    return (BASE_DIR.parent / "data" / "documents").resolve()
 
 
 DOCS_DIR = _resolve_docs_dir()

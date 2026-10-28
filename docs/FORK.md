@@ -12,7 +12,7 @@
 | Папка документов из `.env` | `HOST_DOCS_DIR` + `DOCS_DIR`, `app/config.py` |
 | HTTP MCP для Docker | `docker-compose.yml` → `--sse`, `MCP_TRANSPORT=websocket` |
 
-**Папка с документами:** `HOST_DOCS_DIR` — путь на диске; `DOCS_DIR` — путь в контейнере (например `/app/knowledge`). После смены: `docker compose up -d` + scan.
+**Папка с документами:** по умолчанию `../data/documents` на диске → `/app/documents` в контейнере (см. `.env.example`).
 
 ### Модели по умолчанию (форк)
 
@@ -28,7 +28,7 @@
 После смены embedding **обязательно** новая коллекция или очистка `data/cache/chromadb`, затем полный scan:
 
 ```powershell
-cd D:\Project_AI_Assistent\docs-to-ai\repo
+cd D:\Project_AI_Assistent\docs-to-ai
 docker compose up -d --build
 docker exec docs-to-ai uv run python -m app.scan_all_my_documents
 ```
@@ -36,12 +36,12 @@ docker exec docs-to-ai uv run python -m app.scan_all_my_documents
 Пример `.env`:
 
 ```env
-HOST_DOCS_DIR=./docs-for-index
-DOCS_DIR=/app/docs-for-index
+HOST_DOCS_DIR=../data/documents
+DOCS_DIR=/app/documents
 EMBEDDING_MODEL=intfloat/multilingual-e5-base
 EMBEDDING_DIMENSION=768
 RERANKER_MODEL=BAAI/bge-reranker-v2-m3
-CHROMA_COLLECTION_NAME=docs-for-index-v1
+CHROMA_COLLECTION_NAME=documents-v1
 USE_BM25=True
 ```
 
@@ -51,7 +51,7 @@ USE_BM25=True
 2. В PowerShell:
 
 ```powershell
-cd D:\Project_AI_Assistent\docs-to-ai\repo
+cd D:\Project_AI_Assistent\docs-to-ai
 git remote rename origin upstream
 git remote add origin https://github.com/<ВАШ-LOGIN>/docs-to-ai.git
 git push -u origin main
