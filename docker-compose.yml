@@ -17,7 +17,7 @@ services:
     volumes:
       - ./cache/chromadb:/app/cache/chromadb # chromadb database (persists the vector store)
       - ./cache/doc_cache:/app/cache/doc_cache # Document cache (persists extracted text)
-      - ${HOST_DOCS_DIR:-./my-docs}:${DOCS_DIR:-/app/my-docs}:ro
+      - ${HOST_DOCS_DIR:-./docs-for-index}:${DOCS_DIR:-/app/docs-for-index}:ro
 
     # Environment variables (optional)
     environment:
@@ -28,8 +28,8 @@ services:
       - USE_RERANKER=${USE_RERANKER:-True}
       - USE_BM25=${USE_BM25:-True}
       - BM25_WEIGHT=${BM25_WEIGHT:-0.35}
-      - CHROMA_COLLECTION_NAME=${CHROMA_COLLECTION_NAME:-my-documents-ru-v1}
-      - DOCS_DIR=${DOCS_DIR:-/app/my-docs}
+      - CHROMA_COLLECTION_NAME=${CHROMA_COLLECTION_NAME:-docs-for-index-v1}
+      - DOCS_DIR=${DOCS_DIR:-/app/docs-for-index}
       # Startup behavior control (defaults to True if not set)
       - FULL_SCAN_ON_BOOT=${FULL_SCAN_ON_BOOT:-False}
       - FOLDER_WATCHER_ACTIVE_ON_BOOT=${FOLDER_WATCHER_ACTIVE_ON_BOOT:-True}

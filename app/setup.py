@@ -96,11 +96,11 @@ def print_next_steps():
     print("   - Organize PDFs and Word docs in folders by topic")
     print("   - Place documents in the 'docs' directory")
     print("   - Folder hierarchy becomes topic tags")
-    print("   - Example: my-docs/Project_Name/Legal_Docs/contract.pdf")
+    print("   - Example: docs-for-index/Project_Name/Legal_Docs/contract.pdf")
     print("     → Topics: ['Project_Name', 'Legal_Docs']")
     
     print("\n2. Ingest your documents:")
-    print("   python -m app.scan_all_my_documents --doc-dir ./my-docs")
+    print("   python -m app.scan_all_my_documents --doc-dir ./docs-for-index")
     
     print("\n3. Test the system:")
     print("   python test_system.py")

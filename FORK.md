@@ -36,12 +36,12 @@ docker exec docs-to-ai uv run python -m app.scan_all_my_documents
 Пример `.env`:
 
 ```env
-HOST_DOCS_DIR=./my-docs
-DOCS_DIR=/app/my-docs
+HOST_DOCS_DIR=./docs-for-index
+DOCS_DIR=/app/docs-for-index
 EMBEDDING_MODEL=intfloat/multilingual-e5-base
 EMBEDDING_DIMENSION=768
 RERANKER_MODEL=BAAI/bge-reranker-v2-m3
-CHROMA_COLLECTION_NAME=my-documents-ru-v1
+CHROMA_COLLECTION_NAME=docs-for-index-v1
 USE_BM25=True
 ```
 

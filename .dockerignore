@@ -53,5 +53,6 @@ build/
 claude_desktop_config.example.json
 
 cache/
+docs-for-index/
 my-docs/
 

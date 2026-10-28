@@ -1,11 +1,9 @@
 Документы и поиск (RAG)
 =======================
 
-По умолчанию PDF/Word кладите в папку:  my-docs  (рядом с этим файлом).
+PDF и Word кладите в папку:  docs-for-index  (рядом с этим файлом).
 
-Другую папку на диске задаёт IT в файле .env:
-  HOST_DOCS_DIR=...
-  DOCS_DIR=/app/...
+Другую папку на диске задаёт IT в .env (HOST_DOCS_DIR, DOCS_DIR).
 
 Полная инструкция:
   D:\Project_AI_Assistent\knowledge\user-guides\docs-to-ai-rag-kratko.md
