@@ -19,16 +19,11 @@ services:
       # Startup behavior control (defaults to True if not set)
       - FULL_SCAN_ON_BOOT=${FULL_SCAN_ON_BOOT:-False}
       - FOLDER_WATCHER_ACTIVE_ON_BOOT=${FOLDER_WATCHER_ACTIVE_ON_BOOT:-True}
-      # # MCP server transport configuration
-      # - MCP_TRANSPORT=${MCP_TRANSPORT:-stdio}
-      # - MCP_HOST=${MCP_HOST:-0.0.0.0}
-      # - MCP_PORT=${MCP_PORT:-38777}
-        
-    # Stdin/stdout for MCP protocol (needed for stdio mode)
-    stdin_open: true
-    tty: false
+      - MCP_TRANSPORT=websocket
+      - MCP_HOST=0.0.0.0
+      - MCP_PORT=38777
 
-    # # # Port mapping for websocket/SSE mode
+    command: ["uv", "run", "python", "mcp_server.py", "--sse"]
     ports:
       - "${MCP_PORT:-38777}:38777"
 

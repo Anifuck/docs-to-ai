@@ -14,9 +14,9 @@ DOCS_DIR.mkdir(exist_ok=True, parents=True)
 # Document Processing Configuration
 SUPPORTED_EXTENSIONS = ['.pdf', '.docx', '.doc', '.md', '.xlsx', '.xls', '.xlsam', '.xlsb', '.pptx', '.html', '.htm', '.txt', '.csv']  # Supported document types
 
-# Embedding Configuration
-EMBEDDING_MODEL = "all-MiniLM-L6-v2"  # sentence-transformers model
-EMBEDDING_DIMENSION = 384  # Dimension for all-MiniLM-L6-v2
+# Embedding Configuration (override via EMBEDDING_MODEL / EMBEDDING_DIMENSION in .env or Docker)
+EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
+EMBEDDING_DIMENSION = int(os.getenv("EMBEDDING_DIMENSION", "384"))
 
 # Chunking Configuration
 CHUNKING_STRATEGY = os.getenv('CHUNKING_STRATEGY', 'by_paragraph').lower() # 'fixed_size', 'by_paragraph', 'semantic_heading', or 'by_token'
