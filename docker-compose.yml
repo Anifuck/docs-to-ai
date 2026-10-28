@@ -15,8 +15,8 @@ services:
 
     # Volumes for persistent data
     volumes:
-      - ./cache/chromadb:/app/cache/chromadb # chromadb database (persists the vector store)
-      - ./cache/doc_cache:/app/cache/doc_cache # Document cache (persists extracted text)
+      - ./data/cache/chromadb:/app/data/cache/chromadb
+      - ./data/cache/doc_cache:/app/data/cache/doc_cache
       - ${HOST_DOCS_DIR:-./docs-for-index}:${DOCS_DIR:-/app/docs-for-index}:ro
 
     # Environment variables (optional)

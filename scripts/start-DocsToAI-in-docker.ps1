@@ -1,4 +1,5 @@
 # Build and start the docs-to-ai Docker container
+Set-Location (Join-Path $PSScriptRoot "..")
 
 Write-Host "Building docs-to-ai Docker image..." -ForegroundColor Green
 # Default UID/GID for Windows (since it doesn't use Unix IDs)
@@ -10,12 +11,12 @@ if (wsl -e id -u 2>$null) {
   $env:MY_GID = 1000
 }
 
-docker-compose build
+docker compose build
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "`nBuild successful!" -ForegroundColor Green
     Write-Host "`nStarting MCP server in detached mode..." -ForegroundColor Green
-    docker-compose up -d
+    docker compose up -d
     
     if ($LASTEXITCODE -eq 0) {
         Write-Host "`nContainer started successfully!" -ForegroundColor Green

@@ -25,7 +25,7 @@
 
 Легче по RAM (хуже качество): `intfloat/multilingual-e5-small` + `EMBEDDING_DIMENSION=384`.
 
-После смены embedding **обязательно** новая коллекция или очистка `cache/chromadb`, затем полный scan:
+После смены embedding **обязательно** новая коллекция или очистка `data/cache/chromadb`, затем полный scan:
 
 ```powershell
 cd D:\Project_AI_Assistent\docs-to-ai\repo

@@ -161,6 +161,7 @@ from watchdog.observers import Observer
 
 from app.config import (
     DOCS_DIR,
+    CHROMADB_DIR,
     FULL_SCAN_INTERVAL_DAYS,
     DEBOUNCE_SECONDS,
     SUPPORTED_EXTENSIONS,
@@ -203,7 +204,7 @@ _last_scan_end_time: Optional[float] = None
 _last_full_scan_time: Optional[float] = None
 
 # _scan_state_file: Path to JSON file for persisting scan state across restarts
-_scan_state_file = BASE_DIR / "cache/chromadb/scan_state.json"
+_scan_state_file = CHROMADB_DIR / "scan_state.json"
 
 # _pending_changes: Dictionary tracking pending file changes (action -> filepath)
 # This is used by IncrementalChangeHandler to batch changes

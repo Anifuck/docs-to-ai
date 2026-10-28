@@ -1,4 +1,5 @@
-# Build and start the docs-to-ai Docker container
+# Rebuild docs-to-ai Docker image
+Set-Location (Join-Path $PSScriptRoot "..")
 
 Write-Host "Building docs-to-ai Docker image... BE PATIENT, THIS USUALLY TAKES 8minutes when rebuilding!" -ForegroundColor Green
 docker compose down 

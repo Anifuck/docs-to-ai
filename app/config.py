@@ -3,8 +3,9 @@ import os
 
 # Paths
 BASE_DIR = Path(__file__).parent.parent
-CHROMADB_DIR = BASE_DIR / "cache/chromadb"
-DOC_CACHE_DIR = BASE_DIR / "cache/doc_cache"
+DATA_DIR = BASE_DIR / "data"
+CHROMADB_DIR = DATA_DIR / "cache" / "chromadb"
+DOC_CACHE_DIR = DATA_DIR / "cache" / "doc_cache"
 def _resolve_docs_dir() -> Path:
     """Documents root from DOCS_DIR env (absolute or relative to repo root)."""
     raw = os.getenv("DOCS_DIR")

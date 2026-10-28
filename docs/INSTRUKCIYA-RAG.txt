@@ -1,0 +1,15 @@
+Документы и поиск (RAG)
+=======================
+
+PDF и Word кладите в папку **docs-for-index** в корне repo (можно в подпапках).
+
+Другую папку на диске задаёт IT в .env (HOST_DOCS_DIR, DOCS_DIR).
+
+Полная инструкция:
+  D:\Project_AI_Assistent\knowledge\user-guides\docs-to-ai-rag-kratko.md
+
+Запуск и индексация:
+
+  cd D:\Project_AI_Assistent\docs-to-ai\repo
+  docker compose up -d
+  docker exec docs-to-ai uv run python -m app.scan_all_my_documents

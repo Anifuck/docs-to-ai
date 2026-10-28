@@ -59,8 +59,10 @@ docker-compose.override.yml
 .mcp-debug-tools/
 
 
-# ChromaDB & doc cache
-cache/
+# Runtime data (index, caches)
+data/
+
+# Documents for RAG (PDF etc. not in git)
 docs-for-index/**
 !docs-for-index/КЛАДИТЕ-ФАЙЛЫ-СЮДА.txt
 my-docs/

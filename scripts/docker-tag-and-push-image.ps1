@@ -1,5 +1,7 @@
-# docker build -t dmeric/docs-to-ai .
+# Publish image tags (maintainers)
+Set-Location (Join-Path $PSScriptRoot "..")
 
+# docker build -t dmeric/docs-to-ai .
 docker image tag mcp/docs-to-ai dmeric/docs-to-ai:latest
 docker push dmeric/docs-to-ai:latest
 

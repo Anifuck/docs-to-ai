@@ -1,5 +1,6 @@
 # --- setup.ps1 ---
 # Works on Windows PowerShell and PowerShell Core
+Set-Location (Join-Path $PSScriptRoot "..")
 
 Write-Host "=== Checking for uv installation ==="
 
